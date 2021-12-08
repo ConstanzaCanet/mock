@@ -1,7 +1,8 @@
 import express from 'express';
 import upload from '../services/upload.js';
 import Contenedor from '../class/manager.js';
-import {io} from '../server.js'
+import {io} from '../server.js';
+
 const router =express.Router();
 
 const manager = new Contenedor();
@@ -33,11 +34,9 @@ router.get('/:pid', async (req, res)=>{
 router.post('/', upload.single('image'),(req, res)=>{
 
     let file = req.file;
-    console.log(file)
     let product = req.body;
     product.price= parseInt(product.price)
     product.thumbnail = req.protocol+"://"+req.hostname+":8080"+'/img/'+file.filename;
-    console.log(JSON.stringify(product))
     manager.addObject(product).then(result=>{
         res.send(result);
         if (result.status=== 'success') {
@@ -49,8 +48,10 @@ router.post('/', upload.single('image'),(req, res)=>{
 })
 
 /*PUT */
-router.put('./:pid',(req, res)=>{
+router.put('/:pid', upload.single('image'),(req, res)=>{
     let body = req.body;
+    let file = req.file;
+    body.thumbnail = req.protocol+"://"+req.hostname+":8080"+'/img/'+file.filename;
     let id = parseInt(req.params.pid);
     manager.updateProduct(id,body).then(result=>{
         res.send(result);

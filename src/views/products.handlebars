@@ -1,8 +1,8 @@
 
-<div class="cards-list">
+<div class="cardsA-list">
   {{#each list}}
-<div class="card">
-  <a href="http://localhost:8080/api/products/{{this.id}}"class="card_image"><img src={{this.body.thumbnail}} alt={{this.id}} /></a>
+<div class="cardA">
+  <a href="http://localhost:8080/views/{{this.id}}"class="card_image"><img src={{this.body.thumbnail}} alt={{this.id}} /></a>
   <div class="card_title title-white">
     <p>{{this.body.name}}</p>
   </div>

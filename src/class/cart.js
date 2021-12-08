@@ -1,12 +1,13 @@
 import fs from 'fs';
 import __dirname from '../utils.js';
 
-const proURL= __dirnameproURL;
+const proURL= __dirname+'/files/objectCarrito.txt';
 
 
 class Cart {
 
     /*funcion que cree el carrito---> POST*/
+    
     async postCart(body){
         try{
         let data = await fs.promises.readFile(proURL,'utf-8')
@@ -15,9 +16,9 @@ class Cart {
         let id=carroP.id
 
         
-        if(products.some(element => element.id === body.id)){//Si existe
+        if(products.some(element => element.id === body.id)){
             return {satatus:'error', message: "Cuidado, ese producto ya esta en el carro!"}
-        }else{//Si no existe
+        }else{
             products.push(body)
             const objeticosN= {id, products}
         try{
@@ -54,7 +55,7 @@ class Cart {
     }
 
     /*Actualizar los elementos del carrito --> PUT*/
-    async putCart(body){
+    async putCart(PId,body){
         try {
             let data = await fs.promises.readFile(proURL,'utf-8')
             let carroP = JSON.parse(data);
@@ -62,7 +63,7 @@ class Cart {
             let id=carroP.id
 
             
-            const elementoX = products.filter(element => element.id === body.id);
+            const elementoX = products.filter(element => element.id === PId);
             if (elementoX.length > 0) {
 
                 const filtrado = products.filter(element => element.id != body.id);
@@ -95,8 +96,8 @@ class Cart {
             let products = data.products
             let id=data.id
 
-            const filtrado = products.filter(element => element.id != Productid);
-            if (filtrado.length != 0){
+            if (products.filter(element => element.id != Productid)){
+                const filtrado=products.filter(element => element.id != Productid)
                 products = Object.assign(filtrado)
                 const objeticosN= {id, products}
             

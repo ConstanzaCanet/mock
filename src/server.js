@@ -2,10 +2,11 @@ import express from 'express';
 import upload from './services/upload.js';
 import { engine } from 'express-handlebars';
 import productRouter from './routes/products.js';
+import cartRouter from './routes/cartRouter.js'
 import Contenedor from './class/manager.js';
 import {Server} from 'socket.io';
 import __dirname from './utils.js';
-import {authMiddle} from './utils.js'
+import {authMiddle, fechaActual} from './utils.js'
 
 const manager=new Contenedor();
 
@@ -22,13 +23,15 @@ export const io= new Server(server);
 
 
 /*Variable que maneja el grado de autorizacion, admin(true) o user(false) */
-const admin= true;
-app.use((req, res,next)=>{
-    req.auth =admin;
+export const admin= true;
+
+/*PARA EL METODO POST, DEBO CONFIGURAR QUE RECIBE MI APP*/
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+app.use((req,res,next)=>{
+    req.auth=admin;
     next();
 })
-
-
 /*Vistas, rutas, midelwere */
 app.engine('handlebars',engine())
 app.set('views',__dirname+'/views')
@@ -36,19 +39,14 @@ app.set('view engine','handlebars')
 
 
 app.use(express.static(__dirname+'/public'));
-app.use('/api/products', productRouter);
-
-
-/*PARA EL METODO POST, DEBO CONFIGURAR QUE RECIBE MI APP*/
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use('/api/products', authMiddle,productRouter);
+app.use('/api/cart',authMiddle, cartRouter)
 
 
 
 /*Vistas de Handlebars--->  traigo plantilla con data */
 
-app.get('/views/products',authMiddle,(req, res)=>{
-    
+app.get('/views/products',(req, res)=>{
     manager.getAll().then(result=>{
         let info = result.playload;
         let prepareObject={
@@ -58,23 +56,24 @@ app.get('/views/products',authMiddle,(req, res)=>{
     })
 })
 
-
-
-app.get('/views/aloneProduct/:pid', async (req, res)=>{
+app.get('/views/:pid',(req, res)=>{
     const productId = parseInt(req.params.pid);
-    let datos = await manager.getById(productId);
-    if (datos.status === 'success') {
-        let info= datos.playload
+    manager.getById(productId).then(result=>{
+
+        let info = result.playload;
         let prepareObject={
-            list:info
+            product : info
         }
-        res.send('aloneProduct', prepareObject)
-    }else{
-        res.send('Ese producto no se encuentra, lo siento')
-    }
+
+        res.render('productId', prepareObject);
+    })
+})
+
+
+/*RUTA NO IMPLEMENTADA---ERROR NOT FOUND----> al final de las rutas*/
+app.use(function(req, res){
+    res.status(404).send(`{ error : -2, descripcion: ruta '/404' método 'GET' no implementada}`);
 });
-
-
 
 
 /*MULTER */
@@ -88,36 +87,16 @@ app.post('/api/uploadfile', upload.single('image'),(req,res)=>{
 })
 
 
-//server.on('error', (error)=> console.log('Algo no esta bien... error: '+error))
+
+server.on('error', (error)=> console.log('Algo no esta bien... error: '+error))
 
 /*SOCKET Productos en tiempo real*/
-
-
-
-
 /*Comentarios array socket */
 let comentarios=[];
 
 
 
-/*fecha*/
-var d = new Date()
-let año=d.getFullYear();
-let mes=d.getMonth()+1;
-let num=d.getDate();
-let dia=new Array(7);
-dia[0]="Domingo";
-dia[1]="Lunes";
-dia[2]="Martes";
-dia[3]="Miercoles";
-dia[4]="Jueves";
-dia[5]="Viernes";
-dia[6]="Sabado";
 
-let h=d.getHours();
-let m=d.getMinutes();
-/*Establezco la fecha y hora para enviar en comentarios */
-let fechaActual= dia[d.getDay()]+' '+num+'/'+mes+'/'+año+' Hora: '+h+':'+m+'hs'
 
 io.on('connection',async socket=>{
     console.log(`Socket ${socket.id} esta conectado ahorita`)
@@ -139,6 +118,4 @@ io.on('connection',socket=>{
         io.emit('messagelog',comentarios)
     })
 })
-
-
 

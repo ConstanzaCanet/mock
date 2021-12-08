@@ -1,1 +1,156 @@
-[{"id":0,"body":{"name":"Panqueques","price":90,"description":"Conocidos también como tortitas americanas, hotcakes, pancakes o panquecas, los panqueques son una delicia que se puede comer con dulce o con salado a cualquier hora del día. De esta forma, si te preguntas cómo preparar panqueques la respuesta es sencilla, ¡con lo que quieras!","thumbnail":"http://localhost:8080/img/1638566531094panqueques.jpg"}},{"id":1,"body":{"name":"Chocolatada","price":130,"description":"El buen chocolate no espesa nunca, producto fresco. Es importante que la leche es de primerisima calidad al igual que el chocolate, para disfrutar como merienda o desayuno, en cualquier momento y lugar.","thumbnail":"http://localhost:8080/img/1638567068299lecheChoco.jpg"}},{"id":2,"body":{"name":"Leche","description":"La leche fresca es la leche obtenida directamente de la vaca, la cual se ha sometido a un proceso térmico suave de pasteurización en el que la leche es tratada térmicamente a 79 grados C durante un periodo de 17 segundos, inactivando o eliminando los microorganismos potencialmente peligrosos que pueden provocar enfermedades y preservando prácticamente intactas las propiedades nutricionales y organolépticas de la leche de origen.","price":110,"thumbnail":"http://localhost:8080/img/1638567223384lecheChoco.jpg"}},{"id":3,"body":{"name":"Pepas","description":"Las pepitas de membrillo son unas masitas muy típicas en Argentina. Son ideales para acompañar un café con leche por las mañanas, o un mate por las tardes. Tenemos con o sin TACC, aclara cual preferirias, llevan mantecas, huevos y azucar.","price":160,"thumbnail":"http://localhost:8080/img/1638569138619pepas.jpg"}},{"id":4,"body":{"name":"Pan","description":"Se adapta con facilidad a una gran variedad de platos: si bien lo asociamos directamente con los bocadillos (también llamados emparedados o sándwiches), este producto se puede combinar con guisos, arroz, ensaladas, se puede untar con salsas tales como mayonesa, mostaza o alioli y también con mermelada, manteca o jalea, entre muchos otros ingredientes. En definitiva, el pan queda bien con casi cualquier comida, tanto dulce como salada. Se elabora con agua, levadura y harina y se cocina en un horno.","price":100,"thumbnail":"http://localhost:8080/img/1638569264951pan.jpg"}},{"id":5,"body":{"name":"Mermelada de frutillas","description":"Nuestra especialidad, este delicioso producto se obtiene a partir de la pulpa de esta fruta y gracias a nuestro proceso productivo se obtiene un producto con capacidad para untarse y ser consumido en forma directa. Ideal para consumirlo como parte del desayuno, para postres o bocadillos. Por su naturaleza mermeladas son libres de Gluten. Posee frutillas naturales, azúcar y agua.","price":170,"thumbnail":"http://localhost:8080/img/1638569426186a1a77120-6b48-478a-868f-691107e62a19.jpg"}},{"id":6,"body":{"name":"Galletas de salvado y lino","description":"Galletitas ricas y crocantes, ideales para disfrutar en cualquier momento. Te ofrece una variedad de productos livianos, con semillas y cereales.","price":155,"thumbnail":"http://localhost:8080/img/1638569570993galletasDeLino.jpg"}},{"id":7,"body":{"name":"Galletas de miel","description":"La miel no solo les otorga un sabor peculiar, sino que les agrega características especiales a la textura y el color. Estas galletas son muy sabrosas y se pueden guardar por buen tiempo. Son apropiadas en cualquier momento, especialmente para meriendas, desayunos o entre comidas.","price":180,"thumbnail":"http://localhost:8080/img/1638569750358galletitas_de_miel.jpg"}},{"id":8,"body":{"name":"Galletas con chips de chocolate","description":"Suaves por dentro y crocantes por fuera, con el balance perfecto de azúcar y el delicioso toque a sal de mar, estas Galletas de Chispas de Chocolate son un icono en la panadería. Contienen mantequilla de mani, manteca, azucar, chips de chocolata y huevos.","price":200,"thumbnail":"http://localhost:8080/img/1638570025202pepitos.jpg"}},{"id":9,"body":{"name":"Alfajores de maicena","price":95,"description":"Los alfajores constan de dos pastitas que en el caso de los hechos con maicena tienen una consistencia fina y delicada que se deshace en la boca, que se debe fundamentalmente al almidón de maíz o maicena que lleva la masa. Rellenos con dulce de leche tradicional y decorados con una fina capa de coco rallado. Poseen mantequilla, azucar, huevos y por su puesto maicena.","thumbnail":"http://localhost:8080/img/1638570266846Maicenas.jpg"}}]
+[
+  {
+    "id": 0,
+    "body": {
+      "name": "Panqueques",
+      "description": "Conocidos también como tortitas americanas, hotcakes, pancakes o panquecas, los panqueques son una delicia que se puede comer con dulce o con salado a cualquier hora del día. De esta forma, si te preguntas cómo preparar panqueques la respuesta es sencilla, ¡con lo que quieras!",
+      "price": 90,
+      "stock": "100",
+      "thumbnail": "http://localhost:8080/img/1638750382618panqueques.jpg",
+      "timestamp": 1638913507172
+    }
+  },
+  {
+    "id": 1,
+    "body": {
+      "name": "Chocolatada",
+      "description": "El buen chocolate no espesa nunca, producto fresco. Es importante que la leche es de primerisima calidad al igual que el chocolate, para disfrutar como merienda o desayuno, en cualquier momento y lugar.",
+      "price": 130,
+      "stock": "45",
+      "thumbnail": "http://localhost:8080/img/16387505139521637794391162lecheChoco.jpg",
+      "timestamp": 1638913434796
+    }
+  },
+  {
+    "id": 2,
+    "body": {
+      "name": "Leche",
+      "description": "La leche fresca es la leche obtenida directamente de la vaca, la cual se ha sometido a un proceso térmico suave de pasteurización en el que la leche es tratada térmicamente a 79 grados C durante un periodo de 17 segundos, inactivando o eliminando los microorganismos potencialmente peligrosos que pueden provocar enfermedades y preservando prácticamente intactas las propiedades nutricionales y organolépticas de la leche de origen.",
+      "price": 110,
+      "stock": "40",
+      "thumbnail": "http://localhost:8080/img/16387505492401637794391162lecheChoco.jpg",
+      "timestamp": 1638913519300
+    }
+  },
+  {
+    "id": 3,
+    "body": {
+      "name": "Pepas",
+      "description": "Las pepitas de membrillo son unas masitas muy típicas en Argentina. Son ideales para acompañar un café con leche por las mañanas, o un mate por las tardes. Tenemos con o sin TACC, aclara cual preferirias, llevan mantecas, huevos y azucar.",
+      "price": 160,
+      "stock": "55",
+      "thumbnail": "http://localhost:8080/img/1638750586073pepas.jpg",
+      "timestamp": 1638913537876
+    }
+  },
+  {
+    "id": 4,
+    "body": {
+      "name": "Pan",
+      "description": "Se adapta con facilidad a una gran variedad de platos: si bien lo asociamos directamente con los bocadillos (también llamados emparedados o sándwiches), este producto se puede combinar con guisos, arroz, ensaladas, se puede untar con salsas tales como mayonesa, mostaza o alioli y también con mermelada, manteca o jalea, entre muchos otros ingredientes. En definitiva, el pan queda bien con casi cualquier comida, tanto dulce como salada. Se elabora con agua, levadura y harina y se cocina en un horno",
+      "price": 90,
+      "stock": "40",
+      "thumbnail": "http://localhost:8080/img/1638750618053pan.jpg",
+      "timestamp": 1638913552035
+    }
+  },
+  {
+    "id": 5,
+    "body": {
+      "name": "Mermelada de frutillas",
+      "description": "Nuestra especialidad, este delicioso producto se obtiene a partir de la pulpa de esta fruta y gracias a nuestro proceso productivo se obtiene un producto con capacidad para untarse y ser consumido en forma directa. Ideal para consumirlo como parte del desayuno, para postres o bocadillos. Por su naturaleza mermeladas son libres de Gluten. Posee frutillas naturales, azúcar y agua.",
+      "price": 170,
+      "stock": "13",
+      "thumbnail": "http://localhost:8080/img/1638751253603a1a77120-6b48-478a-868f-691107e62a19.jpg",
+      "timestamp": 1638913434796
+    }
+  },
+  {
+    "id": 7,
+    "body": {
+      "name": "Galletas de salvado y lino",
+      "description": "Galletitas ricas y crocantes, ideales para disfrutar en cualquier momento. Te ofrece una variedad de productos livianos, con semillas y cereales",
+      "price": 155,
+      "stock": "20",
+      "thumbnail": "http://localhost:8080/img/1638759740934galletasDeLino.jpg",
+      "timestamp": 1638913434796
+    }
+  },
+  {
+    "id": 8,
+    "body": {
+      "name": "Galletas de miel",
+      "description": "La miel no solo les otorga un sabor peculiar, sino que les agrega características especiales a la textura y el color. Estas galletas son muy sabrosas y se pueden guardar por buen tiempo. Son apropiadas en cualquier momento, especialmente para meriendas, desayunos o entre comidas.",
+      "price": 180,
+      "stock": "70",
+      "thumbnail": "http://localhost:8080/img/1638759780312galletitas_de_miel.jpg",
+      "timestamp": 1638913434796
+    }
+  },
+  {
+    "id": 9,
+    "body": {
+      "name": "Galletas con chips de chocolate",
+      "description": "uaves por dentro y crocantes por fuera, con el balance perfecto de azúcar y el delicioso toque a sal de mar, estas Galletas de Chispas de Chocolate son un icono en la panadería. Contienen mantequilla de mani, manteca, azucar, chips de chocolate y huevos.",
+      "price": 200,
+      "stock": "50",
+      "thumbnail": "http://localhost:8080/img/1638759824841pepitos.jpg",
+      "timestamp": 1638913434796
+    }
+  },
+  {
+    "id": 10,
+    "body": {
+      "name": "Alfajores de maicena",
+      "description": "Los alfajores constan de dos pastitas que en el caso de los hechos con maicena tienen una consistencia fina y delicada que se deshace en la boca, que se debe fundamentalmente al almidón de maíz o maicena que lleva la masa. Rellenos con dulce de leche tradicional y decorados con una fina capa de coco rallado. Poseen mantequilla, azucar, huevos y por su puesto maicena.",
+      "price": 95,
+      "stock": "30",
+      "thumbnail": "http://localhost:8080/img/1638759852715Maicenas.jpg",
+      "timestamp": 1638913434796
+    }
+  },
+  {
+    "id": 11,
+    "body": {
+      "name": "Jugos naturales",
+      "description": "Las frutas y verduras se incorporan mucho más fácil a la dieta diaria. Ensalada de frutas, colaciones que se consumen entre comidas o jugos naturales en distintas versiones son algunas de las opciones más frecuentes para comer más liviano y saludable.",
+      "price": 100,
+      "stock": "30",
+      "thumbnail": "http://localhost:8080/img/1638759876344jugos.jpeg",
+      "timestamp": 1638905203856
+    }
+  },
+  {
+    "id": 12,
+    "body": {
+      "name": "Sanguches",
+      "description": "El sándwich es una de nuestras opciones favoritas para disfrutar de un lunch saludable y delicioso.Empieza un día ideal con un sándwich saludable para desayunar, preparado con hummus y verduras. ¡Riquísimo!",
+      "price": 170,
+      "stock": "25",
+      "thumbnail": "http://localhost:8080/img/1638759909507sanguche.jpg",
+      "timestamp": 1638905203732
+    }
+  },
+  {
+    "id": 14,
+    "body": {
+      "name": "Te de menta",
+      "price": 90,
+      "stock": "30",
+      "description": "Mejorar la digestión y disminuir las náuseas son algunos de los beneficios del té de menta, el cual es preparado utilizando dos especies diferentes de esta planta, una conocida como hierbabuena,agregándole jengibre y canela. La mezcla de estos ingredientes crea un efecto termogénico que ayuda a acelerar el metabolismo y consumir más calorías para favorecer la pérdida de peso. ",
+      "thumbnail": "http://localhost:8080/img/1638915773560menta.jpg",
+      "timestamp": 1638915773566
+    }
+  },
+  {
+    "id": 15,
+    "body": {
+      "name": "Te de menta",
+      "price": 90,
+      "stock": "30",
+      "description": "Mejorar la digestión y disminuir las náuseas son algunos de los beneficios del té de menta, el cual es preparado utilizando dos especies diferentes de esta planta, una conocida como hierbabuena,agregándole jengibre y canela. La mezcla de estos ingredientes crea un efecto termogénico que ayuda a acelerar el metabolismo y consumir más calorías para favorecer la pérdida de peso. ",
+      "thumbnail": "http://localhost:8080/img/1638920082509menta.jpg",
+      "timestamp": 1638920082519
+    }
+  }
+]

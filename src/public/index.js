@@ -1,3 +1,6 @@
+
+
+
 //Socket client
 const socket = io();
 //Socket events--->trayendo productos en tiempo real
@@ -82,3 +85,4 @@ function sendForm(event){
         alert(JSON.stringify(json.message))
     })
 }
+
