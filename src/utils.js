@@ -21,6 +21,7 @@ dia[6]="Sabado";
 
 let h=d.getHours();
 let m=d.getMinutes();
+let s =d.getSeconds();
 /*Establezco la fecha y hora para enviar en comentarios */
 export const fechaActual= dia[d.getDay()]+' '+num+'/'+mes+'/'+año+' Hora: '+h+':'+m+'hs'
 

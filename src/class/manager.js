@@ -86,11 +86,11 @@ class Contenedor{
         let largo = Number(objeticosA.length)
         let arrayN = objeticosA[largo-1].id+1;
         let id= arrayN;
-        if(objeticosA.some(element => element.nombre === body)){//Si existe
+        if(objeticosA.some(element => element.name === body.name)){//Si existe
             return {satatus:'error', message: "No, no, ese producto ya esta!"}
         }else{//Si no existe
             body = Object.assign(body,{timestamp:Date.now()})
-            body = Object.assign({id:id, body})
+            body = Object.assign({id:id}, body)
             const objeticosN=[...objeticosA, body];
         try{
         await fs.promises.writeFile(proURL,JSON.stringify(objeticosN,null,2));
@@ -102,7 +102,7 @@ class Contenedor{
         }catch{
         //El archivo no existe, entonces hay que crearlo.
         body = Object.assign(body,{timestamp:Date.now()})
-        let body = Object.assign({id:id, body})
+        body = Object.assign({id:0}, body)
         try{
         await fs.promises.writeFile(proURL,JSON.stringify([body],null,2))
         return {status:"success",message:"creado con éxito"}
@@ -123,7 +123,7 @@ class Contenedor{
                 if(pro.id===id){
                         body.timestamp=Date.now()
                         body = {body}
-                        body = Object.assign({id:pro.id,...body})
+                        body = Object.assign({id:pro.id},body)
                         return body;
                 }else{
                     return pro;

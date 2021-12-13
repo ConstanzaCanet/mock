@@ -7,9 +7,10 @@ const router =express.Router();
 
 const carrito =new Cart();
 
-/*GET*/
-router.get('/',(req,res)=>{
-    carrito.getAll().then(result =>{
+/*GET---> trae carrito por su id*/
+router.get('/:cid',(req,res)=>{
+    let id= parseInt(req.params.cid);
+    carrito.getId(id).then(result =>{
         if (result.statuss==='success') {
             res.status(200).send(result.playload);  
         }else{
@@ -18,7 +19,7 @@ router.get('/',(req,res)=>{
     })
 });
 
-/*POST*/
+/*POST---> creo carrito y devuelvo id*/
 router.post('/',upload.single('image'),(req, res)=>{
     let product = req.body;
     carrito.postCart(product).then(result=>{
@@ -31,13 +32,12 @@ router.post('/',upload.single('image'),(req, res)=>{
     })
 });
 
-/*PUT*/
-router.put('/:pid',upload.single('image'),(req, res)=>{
+/*POST---> agrego producto a carrito existente*/
+router.post('/:cid',upload.single('image'),(req, res)=>{
     let product=req.body;
-    let id= parseInt(req.params.pid);
-    carrito.putCart(id,product).then(result=>{
+    let id= parseInt(req.params.cid);
+    carrito.postCartId(id,product).then(result=>{
         if (result.status=== 'success') {
-            res.send(result);
             res.send(result.message)
         }else{
             res.status(404).send(result.message);
@@ -45,9 +45,10 @@ router.put('/:pid',upload.single('image'),(req, res)=>{
     })
 });
 /*DELETE*/
-/*Cancelo toda la compra */
-router.delete('/',(req, res)=>{
-    carrito.deleteCart().then(result=>{
+/*Cancelo toda la compra----> eliminando el carrito por completo*/
+router.delete('/:cid',(req, res)=>{
+    let id= parseInt(req.params.cid)
+    carrito.deleteCartById(id).then(result=>{
         if (result.status==='success'){
             res.send(result.message)
         }else{
@@ -55,10 +56,11 @@ router.delete('/',(req, res)=>{
         }
     })
 });
-/*Elimino solo un producto del carrito */
-router.delete('/:pid',(req, res)=>{
-    let id= parseInt(req.params.pid);
-    carrito.deleteById(id).then(result=>{
+/*DELETE---->Elimino solo un producto del carrito */
+router.delete('/:cid/products/:pid',(req, res)=>{
+    let idP= parseInt(req.params.pid);
+    let idC= parseInt(req.params.cid)
+    carrito.deleteProductById(idC,idP).then(result=>{
         if (result.status== 'success'){
             res.send(result.message)
         }else{
