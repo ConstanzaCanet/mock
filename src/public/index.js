@@ -5,7 +5,7 @@
 const socket = io();
 //Socket events--->trayendo productos en tiempo real
 socket.on('updateProduct', data=>{
-    let products = data.playload;
+    let products = data.payload;
     fetch('templates/productsTable.handlebars').then(string=>string.text()).then(template=>{
         const processedT= Handlebars.compile(template);
         const templateObject={
@@ -81,8 +81,8 @@ function sendForm(event){
 
     }).then(result=>{
         return result.json();
-    }).then(json=>{
-        alert(JSON.stringify(json.message))
+    }).then(result=>{
+        alert(JSON.parse(JSON.stringify(result.message)))
     })
 }
 

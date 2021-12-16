@@ -7,9 +7,9 @@ import Contenedor from './class/manager.js';
 import {Server} from 'socket.io';
 import __dirname from './utils.js';
 import {authMiddle, fechaActual} from './utils.js'
-
+import Productos from './services/productsServer.js'
 const manager=new Contenedor();
-
+const productos= new Productos();
 const app= express();
 
 const PORT = 8080;
@@ -47,8 +47,8 @@ app.use('/api/cart',authMiddle, cartRouter)
 /*Vistas de Handlebars--->  traigo plantilla con data */
 
 app.get('/views/products',(req, res)=>{
-    manager.getAll().then(result=>{
-        let info = result.playload;
+    productos.getAll().then(result=>{
+        let info = result.payload;
         let prepareObject={
             list : info
         }
@@ -58,9 +58,9 @@ app.get('/views/products',(req, res)=>{
 
 app.get('/views/:pid',(req, res)=>{
     const productId = parseInt(req.params.pid);
-    manager.getById(productId).then(result=>{
+    productos.getById(productId).then(result=>{
 
-        let info = result.playload;
+        let info = result.payload;
         let prepareObject={
             product : info
         }
@@ -100,7 +100,7 @@ let comentarios=[];
 
 io.on('connection',async socket=>{
     console.log(`Socket ${socket.id} esta conectado ahorita`)
-    let products= await manager.getAll();
+    let products= await productos.getAll();
     socket.emit('updateProduct',products);
     socket.on('message',data=>{
         console.log(data)
