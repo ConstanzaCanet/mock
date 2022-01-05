@@ -1,27 +1,16 @@
-import knex from 'knex';
 import __dirname from './utils.js';
 
-const database = knex({
-    client:'sqlite3',
-    connection:{filename:__dirname+'/db/ecommerce.sqlite'}, 
-    useNullAsDefault: true
-})
 
-/*
-const database = knex({
-    client: 'mysql',
-    version: '10.4.22',
-    connection: {
-      host: 'localhost',
-      port: 3306,
-      user: 'root',
-      password: '123',
-      database: 'ecommerce'
-    },
-    pool: { min: 0, max: 10 }
-  })
-
-*/
-export default database;
+export default {
+  FileSystem:{ 
+    baseUrl: __dirname+'/files/'
+  },
+  mongo:{ 
+    baseUrl:"mongodb+srv://Constanza:Konecta+865@products.fq2mz.mongodb.net/ecommerce?retryWrites=true&w=majority"
+  },
+  fb:{
+    baseUrl:"https://ecommerce-a50a0.firebaseio.com"
+  }
+}
 
 

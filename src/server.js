@@ -3,13 +3,12 @@ import upload from './services/upload.js';
 import { engine } from 'express-handlebars';
 import productRouter from './routes/products.js';
 import cartRouter from './routes/cartRouter.js'
-import Contenedor from './class/manager.js';
 import {Server} from 'socket.io';
 import __dirname from './utils.js';
 import {authMiddle, fechaActual} from './utils.js'
-import Productos from './services/productsServer.js'
-const manager=new Contenedor();
-const productos= new Productos();
+import {products} from './daos/index.js'
+
+
 const app= express();
 
 const PORT = 8080;
@@ -47,7 +46,7 @@ app.use('/api/cart',authMiddle, cartRouter)
 /*Vistas de Handlebars--->  traigo plantilla con data */
 
 app.get('/views/products',(req, res)=>{
-    productos.getAll().then(result=>{
+    products.getAll().then(result=>{
         let info = result.payload;
         let prepareObject={
             list : info
@@ -58,7 +57,7 @@ app.get('/views/products',(req, res)=>{
 
 app.get('/views/:pid',(req, res)=>{
     const productId = parseInt(req.params.pid);
-    productos.getById(productId).then(result=>{
+    products.getById(productId).then(result=>{
 
         let info = result.payload;
         let prepareObject={
@@ -90,7 +89,7 @@ app.post('/api/uploadfile', upload.single('image'),(req,res)=>{
 
 server.on('error', (error)=> console.log('Algo no esta bien... error: '+error))
 
-/*SOCKET Productos en tiempo real*/
+/*SOCKET products en tiempo real*/
 /*Comentarios array socket */
 let comentarios=[];
 
@@ -100,7 +99,7 @@ let comentarios=[];
 
 io.on('connection',async socket=>{
     console.log(`Socket ${socket.id} esta conectado ahorita`)
-    let products= await productos.getAll();
+    let products= await products.getAll();
     socket.emit('updateProduct',products);
     socket.on('message',data=>{
         console.log(data)
