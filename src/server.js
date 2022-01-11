@@ -119,7 +119,7 @@ io.on('connection',socket=>{
     
     socket.on('message',data=>{
         comentarios.push({id:socket.id,time:fechaActual,message:data})
-        chats.addObject({author:{user:data.user,email:data.email},message:data.message}).then(result=>{
+        chats.addObject({author:{user:data.user,id:data.id},message:data.message}).then(result=>{
             res.send(result)
         })
         io.emit('messagelog',comentarios)

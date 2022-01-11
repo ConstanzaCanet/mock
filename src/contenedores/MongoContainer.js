@@ -21,11 +21,12 @@ export default class MongoContainer{
     getNormalizChats = async ()=>{
         try {
             let documents = await this.collection.find()
+            console.log(documents)
             const authors= new schema.Entity('autors');
-            const message= new schema.Entity('message')
+            const message= new schema.Entity('message');
 
         } catch (error) {
-            
+            return {status:"error", message:"No puedo normalizar esto amigo! revisa tu codigo!"}
         }
     }
 

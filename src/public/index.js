@@ -47,7 +47,7 @@ textarea.addEventListener('keyup',(e)=>{
                 return alert('Lo siento ese mensaje es muy pequeño, porfavor comenta mas')
             }
             else{
-                socket.emit('message',{user:user.value, message:e.target.value})
+                socket.emit('message',{user:user.value,id:email.value,message:e.target.value})
             }
         }    
     }
