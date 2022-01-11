@@ -6,7 +6,7 @@ import cartRouter from './routes/cartRouter.js'
 import {Server} from 'socket.io';
 import __dirname from './utils.js';
 import {authMiddle, fechaActual} from './utils.js'
-import {products} from './daos/index.js'
+import {products, chats} from './daos/index.js'
 
 
 const app= express();
@@ -90,6 +90,11 @@ app.post('/api/uploadfile', upload.single('image'),(req,res)=>{
 server.on('error', (error)=> console.log('Algo no esta bien... error: '+error))
 
 /*SOCKET products en tiempo real*/
+
+
+
+
+
 /*Comentarios array socket */
 let comentarios=[];
 
@@ -114,6 +119,9 @@ io.on('connection',socket=>{
     
     socket.on('message',data=>{
         comentarios.push({id:socket.id,time:fechaActual,message:data})
+        chats.addObject({author:{user:data.user,email:data.email},message:data.message}).then(result=>{
+            res.send(result)
+        })
         io.emit('messagelog',comentarios)
     })
 })

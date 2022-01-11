@@ -1,3 +1,4 @@
+import faker from 'faker';
 import {fileURLToPath} from 'url';
 import {dirname} from 'path';
 
@@ -26,13 +27,28 @@ let s =d.getSeconds();
 export const fechaActual= dia[d.getDay()]+' '+num+'/'+mes+'/'+año+' Hora: '+h+':'+m+'hs'
 
 
-
-
-
-
 export const authMiddle = (req,res,next)=>{
     if (!req.auth) res.status(403).send({error:-1, message:'Autorizacion denegada'})
     else next()
 }
 
+
 export default __dirname;
+/*Utilizando faker----> npm */
+export const generate = (n) =>{
+    let products=[];
+    for(let i =0; i<n;i++){
+        products.push({
+            id:i+1,
+            name : faker.commerce.productName(),
+            price : faker.commerce.price(),
+            description: faker.commerce.productAdjective(),
+            stock:faker.datatype.number({
+                'min': 10,
+                'max': 50
+            })
+
+        })
+    }
+    return products;
+}

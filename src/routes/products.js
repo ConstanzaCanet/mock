@@ -1,10 +1,27 @@
-import express from 'express';
+import express, { application } from 'express';
 import upload from '../services/upload.js';;
 import {io} from '../server.js';
 import {products,persistence} from '../daos/index.js'
+
+import { generate } from '../utils.js';
+import { Mock} from '../faker.js'
+
 const router =express.Router();
+/*FAKER GENERADOR DE ARCHIVOS CON DATA ESTABLECIDA */
+const mock=new Mock();
+router.get('/test',(req,res)=>{
+    let testObject=mock.generateProducts();
+    res.send({status:'success',productsFake:testObject})
+})
 
 
+
+/*FAKER--->npm*/
+router.get('/testfake',(req,res)=>{
+    let cant = req.query.cant?parseInt(req.query.cant):5;
+    let products = generate(cant);
+    res.send({status:'seccess',payload:products})
+})
 
 /*GET */
 router.get('/',(req,res)=>{

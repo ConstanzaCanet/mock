@@ -53,6 +53,9 @@ textarea.addEventListener('keyup',(e)=>{
     }
 });
 
+
+
+
 socket.on('messagelog',data=>{
     let com= document.getElementById('Coments');
 

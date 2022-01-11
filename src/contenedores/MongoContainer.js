@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import config from '../config.js'
-
+import { normalize,schema } from "normalizr";
 
 mongoose.connect(config.mongo.baseUrl,{useNewUrlParser:true,useUnifiedTopology:true})
 
@@ -18,6 +18,17 @@ export default class MongoContainer{
             return {status:"error", message:"Ayyyyy algo fallo amigo!"}
         }
     }
+    getNormalizChats = async ()=>{
+        try {
+            let documents = await this.collection.find()
+            const authors= new schema.Entity('autors');
+            const message= new schema.Entity('message')
+
+        } catch (error) {
+            
+        }
+    }
+
 
     getById = async (idBuscado)=>{
         try {
@@ -126,4 +137,7 @@ export default class MongoContainer{
             return {status:"error", message:"Algo sed ha roto, revisa el codigo!"}
         }
     }
+
+
+
 }
