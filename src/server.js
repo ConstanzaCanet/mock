@@ -68,6 +68,13 @@ app.get('/views/:pid',(req, res)=>{
     })
 })
 
+/*Normalizr*/
+
+app.get('/norm',(req, res)=>{
+    chats.getNormalizChats().then(result=>{
+        res.send(result)
+    })
+})
 
 /*RUTA NO IMPLEMENTADA---ERROR NOT FOUND----> al final de las rutas*/
 app.use(function(req, res){

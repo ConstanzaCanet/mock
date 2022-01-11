@@ -22,8 +22,16 @@ export default class MongoContainer{
         try {
             let documents = await this.collection.find()
             console.log(documents)
-            const authors= new schema.Entity('autors');
-            const message= new schema.Entity('message');
+            const users = new schema.Entity('users');
+            const message = new schema.Entity('message');
+            const posts =new schema.Entity('chats',{
+                author:users,
+                message:[message]
+            });
+
+            const normalizedData = normalize(documents, posts)
+            console.log(JSON.stringify(normalizedData,null,2))
+            return {status:"success", payload:documents}
 
         } catch (error) {
             return {status:"error", message:"No puedo normalizar esto amigo! revisa tu codigo!"}
