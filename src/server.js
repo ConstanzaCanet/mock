@@ -2,15 +2,17 @@ import express from 'express';
 import upload from './services/upload.js';
 import { engine } from 'express-handlebars';
 import productRouter from './routes/products.js';
-import cartRouter from './routes/cartRouter.js'
+import cartRouter from './routes/cartRouter.js';
+import usersRouter from './routes/users.js';
 import {Server} from 'socket.io';
 import __dirname from './utils.js';
 import {authMiddle, fechaActual} from './utils.js'
-import {products, chats} from './daos/index.js'
+import {products, chats,user} from './daos/index.js'
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
 
 
 const app= express();
-
 const PORT = 8080;
 //8080,8081,3000,3001----process.env.port
 
@@ -20,6 +22,12 @@ const server = app.listen( PORT, ()=>{
 export const io= new Server(server);
 
 
+const baseSession = (session({
+    store:MongoStore.create({mongoUrl:"mongodb+srv://Constanza:Konecta+865@products.fq2mz.mongodb.net/session?retryWrites=true&w=majority"}),
+    resave:false,
+    saveUninitialized:false,
+    secret:'ChatComents'
+}))
 
 /*Variable que maneja el grado de autorizacion, admin(true) o user(false) */
 export const admin= true;
@@ -39,7 +47,9 @@ app.set('view engine','handlebars')
 
 app.use(express.static(__dirname+'/public'));
 app.use('/api/products', authMiddle,productRouter);
-app.use('/api/cart',authMiddle, cartRouter)
+app.use('/api/cart',authMiddle, cartRouter);
+app.use('/api/users',usersRouter)
+app.use(baseSession)
 
 
 
@@ -105,8 +115,21 @@ server.on('error', (error)=> console.log('Algo no esta bien... error: '+error))
 /*Comentarios array socket */
 let comentarios=[];
 
+/*Registro de usuarios */
 
 
+app.post('/login',async(req, res)=>{
+    let {email, password}= req.body;
+    if(!email||!password) return res.status(400).send({message:"Amigo te falta data"})
+    const user = await user.getBy({email:email})
+    if (!user) return res.status(404).send({message:'no encuentro ese usuario'})
+    if (user.password!== password) return res.status(404).send({message:'Contraseña no valida'})
+    req.session.user={
+        username:user.username,
+        email:user.email
+    }
+    req.send({status:'logged'})
+})
 
 
 io.on('connection',async socket=>{

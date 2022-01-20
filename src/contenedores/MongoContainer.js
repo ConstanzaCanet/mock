@@ -53,6 +53,19 @@ export default class MongoContainer{
         }
     }
 
+    getBy = async (atributo)=>{
+        try {
+            let document = await this.collection.find(atributo)
+            if (documents) {
+                return {status:"success", payload :document}
+            }else if(!document){
+                return {status:404, message:"no encuentro lo que me pides"}
+            }
+        } catch (error) {
+            return {status:"error", message:"No es que no lo encuentre, es que hay algo que debes revisar en el codigo!Mira:"+error}
+        }
+    }
+
 
     addObject = async (object)=>{
         try {
@@ -63,7 +76,8 @@ export default class MongoContainer{
                 return {status:"success",payload:result}
             }
         } catch (error) {
-            return {status:"error", message:"Algo en todo esto esta mal, revisa el codigo!"}
+            console.log(error)
+            return {status:"error", message:"Algo en todo esto esta mal, revisa el codigo! Observa el error para que te ayude"+error}
         }
     }
 

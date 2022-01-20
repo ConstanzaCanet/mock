@@ -1,13 +1,14 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "type": "module",
   "dependencies": {
+    "connect-mongo": "^4.6.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-handlebars": "^6.0.1",
+    "express-session": "^1.17.2",
     "faker": "^5.5.3",
     "knex": "^0.95.14",
     "moment": "^2.29.1",
@@ -25,5 +26,14 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ConstanzaCanet/mock.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ConstanzaCanet/mock/issues"
+  },
+  "homepage": "https://github.com/ConstanzaCanet/mock#readme",
+  "description": ""
 }

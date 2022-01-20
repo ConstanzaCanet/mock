@@ -1,5 +1,5 @@
 import express, { application } from 'express';
-import upload from '../services/upload.js';;
+import upload from '../services/upload.js';
 import {io} from '../server.js';
 import {products,persistence} from '../daos/index.js'
 
