@@ -55,9 +55,9 @@ export default class MongoContainer{
 
     getBy = async (atributo)=>{
         try {
-            let document = await this.collection.find(atributo)
-            if (documents) {
-                return {status:"success", payload :document}
+            let document = await this.collection.find({'email':atributo})
+            if (document) {
+                return document
             }else if(!document){
                 return {status:404, message:"no encuentro lo que me pides"}
             }
@@ -80,21 +80,6 @@ export default class MongoContainer{
             return {status:"error", message:"Algo en todo esto esta mal, revisa el codigo! Observa el error para que te ayude"+error}
         }
     }
-
-    /* me surgieron dudas haciendo el update--- deje el que tenia menos codigo
-     y el que creo que seria mas correcto, pero dejo el otro por si sirve(al menos para consultar si esta bien o si esta muy mal jeje)
-
-
-    updateProduct = async (id,body) =>{
-        try {
-            let documents = await this.collection.updateOne({_id:id},{name:body.name,description:body.description,price:body.price,stock:body.stock,thumbnail:body.thumbnail})
-            return {status:"success", payload:documents, message:'Cambiaste cositas de tu objeto exitosamente :D'}
-        } catch (error) {
-            return {status:"error", message:"Algo en todo esto esta mal, revisa el codigo!"}
-        }
-    }
-
-    */
     
 
     updateProduct = async (id,body) =>{
