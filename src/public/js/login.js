@@ -6,7 +6,7 @@ form.addEventListener('submit',function(event){
         email : info.get('email'),
         password:info.get('password'),
     }
-    fetch('/login',{
+    fetch('/api/users/login',{
         method:'POST',
         body:JSON.stringify(sendObject),
         headers:{
@@ -14,6 +14,5 @@ form.addEventListener('submit',function(event){
         }
     }).then(result=>result.json()).then(json=>{
         console.log(json);
-        location.replace('./index.html')
     })
 })

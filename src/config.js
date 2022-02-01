@@ -1,7 +1,28 @@
-import __dirname from './utils.js';
+import __dirname from "./utils.js"
+import dotenv from 'dotenv';
+import yargs from 'yargs';
 
+dotenv.config();
+
+const args = yargs(process.argv.slice(2));
+const processedArgs = args.options({
+  port: {
+    alias: "p",
+    default: 8080,
+    describe: "Port to listen",
+    type: "number",
+  },
+}).argv;
 
 export default {
+  PORT: processedArgs.port,
+
+  store:process.env.STORE,
+  
+  resave:process.env.RESAVE,
+
+  secret:process.env.SECRET||"LaclavesecretadeCoder",
+
   FileSystem:{ 
     baseUrl: __dirname+'/files/'
   },

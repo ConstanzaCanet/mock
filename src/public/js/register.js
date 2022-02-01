@@ -11,16 +11,19 @@ form.addEventListener('submit',function(event){
         email:info.get('email'),
         password:info.get('password'),
     }
-    fetch('api/users',{
+    fetch('/api/users',{
         method:"POST",
         body:JSON.stringify(sendObject),
         headers:{
-            'Content-Type': 'application/json'
+            'Content-Type':'application/json'
         }
-    }).then(result=>result.json()).then(json=>{
+    }).then(json=>{
         form.reset();
-        alert({
-            message:'Exelente, estas logueado!'
-        })
+        alert('Usuario Registrado! Ahora puedes logearte');
+       location.replace('../pages/login.html')
     })
 })
+
+//let sendObject={}
+//let data = new FormData(form);
+//data.forEach((value.key)=>{sendObject[key]=value})

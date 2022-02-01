@@ -12,7 +12,7 @@ export default class MongoContainer{
 
     getAll=  async() =>{
         try {
-            let documents = await this.collection.find()
+            let documents = await this.collection.find().lean()
             return{status:"success", payload:documents}
         } catch (error) {
             return {status:"error", message:"Ayyyyy algo fallo amigo!"}
@@ -41,7 +41,7 @@ export default class MongoContainer{
 
     getById = async (idBuscado)=>{
         try {
-            let documents = await this.collection.find({'_id':idBuscado})
+            let documents = await this.collection.find({'_id':idBuscado}).lean()
             if (documents) {
                 return {status:"success", payload:documents}
             }else if(documents.length === 0){
@@ -97,7 +97,19 @@ export default class MongoContainer{
         }
     }
 
-
+    update = async(id,body) =>{
+        try{
+            let docs = await this.collection.findById({ '_id': id }, { '__v': 0 });
+            if(docs.length === 0){
+                return {status:"success", message:"El id solicitado no tiene información"}
+            }else{
+                let docs = await this.collection.findByIdAndUpdate(id, { $set: body })
+                return{status:"success", payload:docs}
+            }
+        }catch(error){
+            return {status:"error",message:"Error al obtener el documento: " + error}
+        }
+    }
     
     deleteById = async (id)=>{
         try {

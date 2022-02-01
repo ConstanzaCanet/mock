@@ -7,16 +7,21 @@ import usersRouter from './routes/users.js';
 import {Server} from 'socket.io';
 import __dirname from './utils.js';
 import {authMiddle, fechaActual} from './utils.js'
-import {products, chats,user} from './daos/index.js'
-
+import {products, chats, persistence} from './daos/index.js'
+import config from './config.js';
+/*rutas de desafio */
+import infoRouter from './routes/processChild/info.js';
+import random from './routes/processChild/random.js';
 
 const app= express();
-const PORT = 8080;
-//8080,8081,3000,3001----process.env.port
+const PORT = config.PORT;
+
+/*Para el desafio utilizariamos yargs o minimist para pasar el puerto o darle un valor por defecto*/
 
 const server = app.listen( PORT, ()=>{
     console.log(`Servidor escuchando en el puerto ${PORT}`)
 });
+
 export const io= new Server(server);
 
 
@@ -42,6 +47,10 @@ app.use('/api/products', authMiddle,productRouter);
 app.use('/api/cart',authMiddle, cartRouter);
 app.use('/api/users',usersRouter)
 
+app.use('/api/random',random)
+app.use('/info',infoRouter)
+
+
 
 
 
@@ -58,7 +67,12 @@ app.get('/views/products',(req, res)=>{
 })
 
 app.get('/views/:pid',(req, res)=>{
-    const productId = parseInt(req.params.pid);
+    let productId
+    if (persistence ==='fileSystem') {
+        productId = parseInt(req.params.pid)        
+    }else{
+        productId = req.params.pid
+    }
     products.getById(productId).then(result=>{
 
         let info = result.payload;
@@ -111,8 +125,8 @@ let comentarios=[];
 
 io.on('connection',async socket=>{
     console.log(`Socket ${socket.id} esta conectado ahorita`)
-    let products= await products.getAll();
-    socket.emit('updateProduct',products);
+    let productos= await products.getAll();
+    socket.emit('updateProduct',productos);
     socket.on('message',data=>{
         console.log(data)
     })

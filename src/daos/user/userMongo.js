@@ -7,7 +7,7 @@ export default class UserMongo extends MongoContainer{
             {
                 first_name:{type:String,required:true},
                 last_name:{type:String,required:true},
-                username:{type:String,default:"anonymus",unique:true},
+                user_name:{type:String,default:"anonymus",unique:true},
                 age:{type:Number},
                 email:{type:String,required:true,unique:true},
                 password:{type:String,required:true}

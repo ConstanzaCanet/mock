@@ -4,19 +4,28 @@ import { user } from '../daos/index.js';
 import upload from '../services/upload.js';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
+import config from '../config.js'
 
 
+let urlSession=process.env.STORE||"mongodb+srv://Constanza:Konecta+865@products.fq2mz.mongodb.net/session?retryWrites=true&w=majority"
 export const baseSession = (session({
-    store:MongoStore.create({mongoUrl:"mongodb+srv://Constanza:Konecta+865@products.fq2mz.mongodb.net/sessions?retryWrites=true&w=majority"}),
-    resave:false,
+    store:MongoStore.create({mongoUrl:config.store}),
+    resave:config.resave,
     saveUninitialized:false,
-    secret:'ChatComents'
+    secret:config.secret
 }))
 
 router.use(baseSession)
 
+router.post('/',(req,res)=>{
+    let Newuser = req.body;
+    user.addObject(Newuser).then(result =>{
+        res.send(result)
+        console.log(result)
+    })
+}) 
 
- 
+
 router.get('/',(req,res)=>{
     user.getAll().then(result =>{
         res.send(result)
@@ -31,22 +40,14 @@ router.get('/:uid',(req,res)=>{
     })
 })            
 
-router.post('/',upload.none(),(req, res)=>{
-    let userNew = req.body;
-    console.log(userNew)
-    try {
-        user.addObject(userNew).then(result=>{
-            res.send(result)
-            let timestamp = Date.now();
-            let time = new Date(timestamp);
-            return {status:"success", message:'registrado a las '+time.toTimeString().split(" ")[0]}
-        })
-        
-    } catch (error) {
-        return {status:"error", message:"el error es:"+error}
-    }
-})
 
+router.put('/:uid',(req,res)=>{
+    let id= parseInt(req.params.uid)
+    let body = req.body;
+    user.update(id,body).then(result=>{
+    res.send(result)
+    })
+})  
 /*Registro de usuarios */
 
 
@@ -57,13 +58,19 @@ router.post('/login',upload.none(),async(req, res)=>{
     const userSerch = await user.getBy(email)
     console.log(userSerch)
     if (!userSerch) return res.status(404).send({message:'no encuentro ese usuario'})
-    if (userSerch[0].password!= password) return res.status(404).send({message:'Contraseña no valida'})
-    req.session.user={
-        username:userSerch[0].username,
-        email:userSerch[0].email
+    if (userSerch[0].password!== password){
+        console.log('olvidaste tu contraseña? Vuelve a intentar')
+        return res.status(404).send({message:'Contraseña no valida'})
+    }else{
+        
+        req.session.user={
+            username:userSerch[0].user_name,
+            email:userSerch[0].email
+        }
+        console.log(req.session.user)
+        return res.send({status:'logged'})
+
     }
-    console.log(req.session.user)
-    res.send({status:'logged'})
 })
 
 
@@ -72,6 +79,8 @@ router.delete('/:uid',(req,res)=>{
     user.deleteById(id).then(result=>{
         res.send(result)
     })
+
+    
 })
 
 
